@@ -27,14 +27,3 @@ C:\git\private\GreenDelivery\obj\Debug\net6.0\GreenDelivery.genruntimeconfig.cac
 C:\git\private\GreenDelivery\bin\Debug\net6.0\GreenDelivery.Service.dll
 C:\git\private\GreenDelivery\bin\Debug\net6.0\GreenDelivery.Service.pdb
 C:\git\private\GreenDelivery\obj\Debug\net6.0\GreenDelivery.csproj.CopyComplete
-C:\git\private\GreenDelivery\GreenDelivery\obj\Debug\net6.0\GreenDelivery.csproj.AssemblyReference.cache
-C:\git\private\GreenDelivery\GreenDelivery\obj\Debug\net6.0\GreenDelivery.GeneratedMSBuildEditorConfig.editorconfig
-C:\git\private\GreenDelivery\GreenDelivery\obj\Debug\net6.0\GreenDelivery.AssemblyInfoInputs.cache
-C:\git\private\GreenDelivery\GreenDelivery\obj\Debug\net6.0\GreenDelivery.AssemblyInfo.cs
-C:\git\private\GreenDelivery\GreenDelivery\obj\Debug\net6.0\GreenDelivery.csproj.CoreCompileInputs.cache
-C:\git\private\GreenDelivery\GreenDelivery\obj\Debug\net6.0\GreenDelivery.MvcApplicationPartsAssemblyInfo.cache
-C:\git\private\GreenDelivery\GreenDelivery\obj\Debug\net6.0\GreenDelivery.RazorAssemblyInfo.cache
-C:\git\private\GreenDelivery\GreenDelivery\obj\Debug\net6.0\GreenDelivery.RazorAssemblyInfo.cs
-C:\git\private\GreenDelivery\GreenDelivery\obj\Debug\net6.0\GreenDelivery.dll
-C:\git\private\GreenDelivery\GreenDelivery\obj\Debug\net6.0\ref\GreenDelivery.dll
-C:\git\private\GreenDelivery\GreenDelivery\obj\Debug\net6.0\GreenDelivery.pdb
