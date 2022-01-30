@@ -1,0 +1,19 @@
+﻿@{
+    ViewData["Title"] = "Delivery dates";
+    @model IEnumerable<GreenDelivery.Service.Models.Delivery>
+    @foreach (var delivery in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => delivery.PostalCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => delivery.DeliveryDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => delivery.IsGreenDelivery)
+            </td>
+        </tr>
+    }
+}
+
