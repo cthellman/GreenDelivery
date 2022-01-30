@@ -9,7 +9,7 @@ namespace GreenDelivery.Test
 {
     public class DeliveryTests
     {
-        private IDeliveryService _service = new DeliveryService();
+        private readonly IDeliveryService _service = new DeliveryService();
 
         [Fact]
         public void CreateNewOrder_InputEmpty_ShouldGiveTwoWeeksDeliveryDates()
@@ -69,29 +69,68 @@ namespace GreenDelivery.Test
         }
 
         [Fact]
-        public void CanDeliverExternalProduct()
+        public void NotExternalProduct_CanDeliverExternalProduct_ShouldBeTrue()
         {
-            //if (product.ProductType != Product.ProductTypes.External)
-            //    return true;
-
-            //return delivery.DeliveryDate < orderDateTime.AddDays(5);
+            var product = new Product();
+            var delivery = new Delivery(0, DateTime.Now);
+            Assert.True(_service.CanDeliverExternalProduct(product, delivery, DateTime.Now));
         }
 
         [Fact]
-        public void CanDeliverTemporaryProduct()
+        public void TemporaryProduct_DeliveryIsInEightDays_CanDeliverTemporaryProduct_ShouldBeTrue()
         {
-            //if (product.ProductType != Product.ProductTypes.Temporary)
-            //    return true;
-
-            //return delivery.DeliveryDate < orderDateTime.AddDays(7);
+            var product = new Product { ProductType = Product.ProductTypes.Temporary };
+            var delivery = new Delivery(0, DateTime.Now.AddDays(8));
+            Assert.True(_service.CanDeliverTemporaryProduct(product, delivery, DateTime.Now));
         }
 
         [Fact]
-        public void IsGreenDelivery()
+        public void TemporaryProduct_DeliveryIsInSevenDays_CanDeliverTemporaryProduct_ShouldBeFalse()
         {
-            //return delivery.DeliveryDate.Day % 7 == 0;
+            var product = new Product { ProductType = Product.ProductTypes.Temporary };
+            var delivery = new Delivery(0, DateTime.Now.AddDays(7));
+            Assert.False(_service.CanDeliverTemporaryProduct(product, delivery, DateTime.Now));
         }
 
+        [Fact]
+        public void NotTemporaryProduct_CanDeliverTemporaryProduct_ShouldBeTrue()
+        {
+            var product = new Product();
+            var delivery = new Delivery(0, DateTime.Now);
+            Assert.True(_service.CanDeliverTemporaryProduct(product, delivery, DateTime.Now));
+        }
+
+        [Fact]
+        public void DeliveryOnTheFourteenth_IsGreenDelivery_ShouldBeTrue()
+        {
+            var delivery = new Delivery(0, new DateTime(2022,12,14));
+            Assert.True(_service.IsGreenDelivery(delivery));
+        }
+
+        [Fact]
+        public void DeliveryOnTheThirteenth_IsGreenDelivery_ShouldBeFalse()
+        {
+            var delivery = new Delivery(0, new DateTime(2022, 12, 13));
+            Assert.False(_service.IsGreenDelivery(delivery));
+        }
+
+        //[Fact]
+        //public void GetDeliveryDates()
+        //{
+        //    var order = new Order(12345,new List<Product>()
+        //    {
+        //        new Product()
+        //        {
+
+        //        }
+
+
+
+
+        //    })
+
+        //    _service.GetDeliveryDates()
+
+        //}
     }
-
 }

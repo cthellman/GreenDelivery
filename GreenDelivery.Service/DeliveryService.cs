@@ -24,7 +24,7 @@ namespace GreenDelivery.Service
                     if (!CanDeliverTemporaryProduct(product, deliveryDate, order.OrderDateTime))
                         deliveryDates.Remove(deliveryDate);
 
-                    deliveryDate.IsGreenDelivery = IsGreenDelivery(product,deliveryDate, order.OrderDateTime);
+                    deliveryDate.IsGreenDelivery = IsGreenDelivery(deliveryDate);
                 }
             }
             return deliveryDates;
@@ -53,10 +53,10 @@ namespace GreenDelivery.Service
             if (product.ProductType != Product.ProductTypes.Temporary)
                 return true;
 
-            return delivery.DeliveryDate < orderDateTime.AddDays(7);
+            return delivery.DeliveryDate > orderDateTime.AddDays(7);
         }
 
-        public bool IsGreenDelivery(Product product, Delivery delivery, DateTime orderDateTime)
+        public bool IsGreenDelivery(Delivery delivery)
         {
             return delivery.DeliveryDate.Day % 7 == 0;
         }

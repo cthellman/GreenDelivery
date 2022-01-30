@@ -9,5 +9,5 @@ public interface IDeliveryService
     bool CanDeliverOnTime(Product product, Delivery delivery, DateTime orderDateTime);
     bool CanDeliverExternalProduct(Product product, Delivery delivery, DateTime orderDateTime);
     bool CanDeliverTemporaryProduct(Product product, Delivery delivery, DateTime orderDateTime);
-    bool IsGreenDelivery(Product product, Delivery delivery, DateTime orderDateTime);
+    bool IsGreenDelivery(Delivery delivery);
 }
