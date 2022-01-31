@@ -1,19 +1,79 @@
-﻿@{
-    ViewData["Title"] = "Delivery dates";
-    @model IEnumerable<GreenDelivery.Service.Models.Delivery>
-    @foreach (var delivery in Model)
-    {
+﻿@using GreenDelivery.Service.Models
+@model GreenDelivery.Controllers.ViewModel
+@{
+    ViewData["Title"] = "Products - Delivery dates";
+
+    <table class="table table-hover">
+        <thead>
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => delivery.PostalCode)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => delivery.DeliveryDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => delivery.IsGreenDelivery)
-            </td>
+            <th scope="col">
+                Name
+            </th>
+            <th scope="col">
+                Type
+            </th>
+            <th scope="col">
+                Days in advance
+            </th>
+            <th scope="col">
+                Delivery days
+            </th>
         </tr>
-    }
+        </thead>
+        <tbody>
+        @foreach (Product product in Model.Products)
+        {
+            <tr class="table-active">
+                <th scope="row">
+                    @product.ProductName
+                </th>
+                <th scope="row">
+                    @product.ProductType
+                </th>
+                <th scope="row">
+                    @product.DaysInAdvance
+                </th>
+                <th scope="row">
+                    @foreach (var day in product.DeliveryDays)
+                    {
+                        @day
+                    }
+                </th>
+            </tr>
+        }
+        </tbody>
+    </table>
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">
+                    Postal code
+                </th>
+                <th scope="col">
+                    Delivery date
+                </th>
+                <th scope="col">
+                    Green delivery?
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (Delivery delivery in Model.Dates)
+        {
+            <tr class="table-active">
+                <th scope="row">
+                    @delivery.PostalCode
+                </th>
+                <th scope="row">
+                    @delivery.DeliveryDate
+                </th>
+                <th scope="row">
+                    @delivery.IsGreenDelivery
+                </th>
+            </tr>
+        }
+        </tbody>
+    </table>
 }
 

@@ -6,25 +6,40 @@ namespace GreenDelivery.Service
     {
         public IEnumerable<Delivery> GetDeliveryDates(Order order)
         {
-            var deliveryDates = order.PossibleDeliveryDates;
-            
+            var deliveryDates = new List<Delivery>();
+            for (var i = 1; i < 15; i++)
+            {
+                deliveryDates.Add(new Delivery(order.PostalCode, order.OrderDateTime.AddDays(i)));
+            }
+
             foreach (var product in order.Products)
             {
-                foreach (var deliveryDate in deliveryDates)
+                for (var i = 0;i<deliveryDates.Count;i++)
                 {
-                    if (!CanDeliverOnWeekday(product, deliveryDate))
-                        deliveryDates.Remove(deliveryDate);
+                    deliveryDates[i].IsGreenDelivery = IsGreenDelivery(deliveryDates[i]);
 
-                    if (!CanDeliverOnTime(product, deliveryDate, order.OrderDateTime))
-                        deliveryDates.Remove(deliveryDate);
+                    if (!CanDeliverOnWeekday(product, deliveryDates[i]))
+                    {
+                        deliveryDates.RemoveAt(i);
+                        continue;
+                    }
 
-                    if (!CanDeliverExternalProduct(product, deliveryDate, order.OrderDateTime))
-                        deliveryDates.Remove(deliveryDate);
+                    if (!CanDeliverOnTime(product, deliveryDates[i], order.OrderDateTime))
+                    {
+                        deliveryDates.RemoveAt(i);
+                        continue;
+                    }
 
-                    if (!CanDeliverTemporaryProduct(product, deliveryDate, order.OrderDateTime))
-                        deliveryDates.Remove(deliveryDate);
+                    if (!CanDeliverExternalProduct(product, deliveryDates[i], order.OrderDateTime))
+                    {
+                        deliveryDates.RemoveAt(i);
+                        continue;
+                    }
 
-                    deliveryDate.IsGreenDelivery = IsGreenDelivery(deliveryDate);
+                    if (!CanDeliverTemporaryProduct(product, deliveryDates[i], order.OrderDateTime))
+                    {
+                        deliveryDates.RemoveAt(i);
+                    }
                 }
             }
             return deliveryDates;
@@ -37,7 +52,7 @@ namespace GreenDelivery.Service
 
         public bool CanDeliverOnTime(Product product, Delivery delivery, DateTime orderDateTime)
         {
-            return delivery.DeliveryDate > orderDateTime.AddDays(product.DaysInAdvance);
+            return delivery.DeliveryDate.Date > orderDateTime.AddDays(product.DaysInAdvance).Date;
         }
 
         public bool CanDeliverExternalProduct(Product product, Delivery delivery, DateTime orderDateTime)
@@ -45,7 +60,7 @@ namespace GreenDelivery.Service
             if (product.ProductType != Product.ProductTypes.External)
                 return true;
 
-            return delivery.DeliveryDate > orderDateTime.AddDays(5);
+            return delivery.DeliveryDate.Date > orderDateTime.AddDays(5).Date;
         }
 
         public bool CanDeliverTemporaryProduct(Product product, Delivery delivery, DateTime orderDateTime)
@@ -53,12 +68,12 @@ namespace GreenDelivery.Service
             if (product.ProductType != Product.ProductTypes.Temporary)
                 return true;
 
-            return delivery.DeliveryDate > orderDateTime.AddDays(7);
+            return delivery.DeliveryDate.Date > orderDateTime.AddDays(7).Date;
         }
 
         public bool IsGreenDelivery(Delivery delivery)
         {
-            return delivery.DeliveryDate.Day % 7 == 0;
+            return delivery.DeliveryDate.Day % 3 == 0;
         }
 
     }

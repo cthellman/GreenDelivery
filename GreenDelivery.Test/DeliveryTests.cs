@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using GreenDelivery.Service;
+using GreenDelivery.Service.Data;
 using GreenDelivery.Service.Models;
 using Xunit;
 
@@ -101,9 +102,9 @@ namespace GreenDelivery.Test
         }
 
         [Fact]
-        public void DeliveryOnTheFourteenth_IsGreenDelivery_ShouldBeTrue()
+        public void DeliveryOnTheNinth_IsGreenDelivery_ShouldBeTrue()
         {
-            var delivery = new Delivery(0, new DateTime(2022,12,14));
+            var delivery = new Delivery(0, new DateTime(2022,12,9));
             Assert.True(_service.IsGreenDelivery(delivery));
         }
 
@@ -114,23 +115,12 @@ namespace GreenDelivery.Test
             Assert.False(_service.IsGreenDelivery(delivery));
         }
 
-        //[Fact]
-        //public void GetDeliveryDates()
-        //{
-        //    var order = new Order(12345,new List<Product>()
-        //    {
-        //        new Product()
-        //        {
-
-        //        }
-
-
-
-
-        //    })
-
-        //    _service.GetDeliveryDates()
-
-        //}
+        [Fact]
+        public void GetDeliveryDates_()
+        {
+            var order = Orders.NormalProductsThreeDaysInAdvanceMonWedFri;
+            var deliveries = _service.GetDeliveryDates(order);
+            Assert.True(deliveries.Count() == 2);
+        }
     }
 }

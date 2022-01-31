@@ -2,17 +2,15 @@
 
 public class Order
 {
-    public Order(int postalCode, IEnumerable<Product> products)
+    public Order(int postalCode, List<Product> products)
     {
         OrderDateTime = DateTime.Now;
+        PostalCode = postalCode;
         Products = products;
-        for (var i = 1; i < 15; i++)
-        {
-            PossibleDeliveryDates.Add(new Delivery(postalCode, OrderDateTime.AddDays(i)));
-        }
     }
 
-    public IEnumerable<Product> Products { get; set; }
-    public DateTime OrderDateTime { get; set; }
+    public int PostalCode { get; }
+    public List<Product> Products { get; }
+    public DateTime OrderDateTime { get; init; }
     public List<Delivery> PossibleDeliveryDates { get; set; } = new();
 }
