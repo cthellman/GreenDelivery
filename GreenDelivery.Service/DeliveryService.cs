@@ -68,7 +68,7 @@ namespace GreenDelivery.Service
             if (product.ProductType != Product.ProductTypes.Temporary)
                 return true;
 
-            return delivery.DeliveryDate.Date > orderDateTime.AddDays(7).Date;
+            return delivery.DeliveryDate.Date < orderDateTime.AddDays(7).Date;
         }
 
         public bool IsGreenDelivery(Delivery delivery)
