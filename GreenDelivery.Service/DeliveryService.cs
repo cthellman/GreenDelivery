@@ -9,7 +9,7 @@ namespace GreenDelivery.Service
             var deliveryDates = new List<Delivery>();
             for (var i = 1; i < 15; i++)
             {
-                deliveryDates.Add(new Delivery(order.PostalCode, order.OrderDateTime.AddDays(i)));
+                deliveryDates.Add(new Delivery(order.PostalCode, order.OrderDateTime.AddDays(i), order.OrderDateTime));
             }
 
             foreach (var product in order.Products)
@@ -42,6 +42,9 @@ namespace GreenDelivery.Service
                     }
                 }
             }
+
+            deliveryDates.Sort();
+
             return deliveryDates;
         }
 
@@ -73,8 +76,10 @@ namespace GreenDelivery.Service
 
         public bool IsGreenDelivery(Delivery delivery)
         {
-            return delivery.DeliveryDate.Day % 3 == 0;
+            return delivery.DeliveryDate.Day % 2 == 0;
         }
 
     }
+
+
 }

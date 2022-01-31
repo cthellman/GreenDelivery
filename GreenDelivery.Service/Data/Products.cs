@@ -57,6 +57,24 @@ public static class Products
         ProductType = Product.ProductTypes.Normal
     };
 
+    public static readonly Product NormalProduct = new()
+    {
+        DaysInAdvance = 0,
+        DeliveryDays = new List<DayOfWeek>
+        {
+            DayOfWeek.Monday,
+            DayOfWeek.Tuesday,
+            DayOfWeek.Wednesday,
+            DayOfWeek.Thursday,
+            DayOfWeek.Friday,
+            DayOfWeek.Saturday,
+            DayOfWeek.Sunday
+
+        },
+        ProductName = "Bönor",
+        ProductType = Product.ProductTypes.Normal
+    };
+
     public static readonly Product NormalProductMonWedFri = new()
     {
         DaysInAdvance = 0,

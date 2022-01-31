@@ -37,7 +37,7 @@ namespace GreenDelivery.Controllers
 
         public IActionResult NormalProducts()
         {
-            var order = Orders.NormalProductsThreeDaysInAdvanceMonWedFri;
+            var order = Orders.NormalProducts;
             var model = new ViewModel
             {
                 Dates = _deliveryService.GetDeliveryDates(order),
