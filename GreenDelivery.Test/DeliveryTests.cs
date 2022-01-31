@@ -16,7 +16,7 @@ namespace GreenDelivery.Test
         public void ProductAndDeliveryOnSameWeekday_CanDeliverOnWeekday_ShouldBeTrue()
         {
             var product = new Product { DeliveryDays = new List<DayOfWeek> { DateTime.Now.DayOfWeek} };
-            var delivery = new Delivery(0, DateTime.Now, TODO);
+            var delivery = new Delivery(0, DateTime.Now, DateTime.Now);
             Assert.True(_service.CanDeliverOnWeekday(product,delivery));
         }
         
@@ -24,7 +24,7 @@ namespace GreenDelivery.Test
         public void ProductAndDeliveryOnNotSameWeekday_CanDeliverOnWeekday_ShouldBeFalse()
         {
             var product = new Product { DeliveryDays = new List<DayOfWeek> { DateTime.Now.AddDays(1).DayOfWeek } };
-            var delivery = new Delivery(0, DateTime.Now, TODO);
+            var delivery = new Delivery(0, DateTime.Now, DateTime.Now);
             Assert.False(_service.CanDeliverOnWeekday(product, delivery));
         }
 
@@ -32,7 +32,7 @@ namespace GreenDelivery.Test
         public void ProductNeedFourDays_DeliveryIsInFiveDays_CanDeliverOnTime_ShouldBeTrue()
         {
             var product = new Product { DaysInAdvance = 4};
-            var delivery = new Delivery(0, DateTime.Now.AddDays(5), TODO);
+            var delivery = new Delivery(0, DateTime.Now.AddDays(5), DateTime.Now);
             Assert.True(_service.CanDeliverOnTime(product, delivery, DateTime.Now));
         }
 
@@ -40,7 +40,7 @@ namespace GreenDelivery.Test
         public void ProductNeedFourDays_DeliveryIsInTwoDays_CanDeliverOnTime_ShouldBeFalse()
         {
             var product = new Product { DaysInAdvance = 4 };
-            var delivery = new Delivery(0, DateTime.Now.AddDays(2), TODO);
+            var delivery = new Delivery(0, DateTime.Now.AddDays(2), DateTime.Now);
             Assert.False(_service.CanDeliverOnTime(product, delivery, DateTime.Now));
         }
 
@@ -48,7 +48,7 @@ namespace GreenDelivery.Test
         public void ExternalProduct_DeliveryIsInSixDays_CanDeliverExternalProduct_ShouldBeTrue()
         {
             var product = new Product { ProductType = Product.ProductTypes.External };
-            var delivery = new Delivery(0, DateTime.Now.AddDays(6), TODO);
+            var delivery = new Delivery(0, DateTime.Now.AddDays(6), DateTime.Now);
             Assert.True(_service.CanDeliverExternalProduct(product, delivery, DateTime.Now));
         }
 
@@ -56,7 +56,7 @@ namespace GreenDelivery.Test
         public void ExternalProduct_DeliveryIsInFiveDays_CanDeliverExternalProduct_ShouldBeFalse()
         {
             var product = new Product { ProductType = Product.ProductTypes.External };
-            var delivery = new Delivery(0, DateTime.Now.AddDays(5), TODO);
+            var delivery = new Delivery(0, DateTime.Now.AddDays(5), DateTime.Now);
             Assert.False(_service.CanDeliverExternalProduct(product, delivery, DateTime.Now));
         }
 
@@ -64,7 +64,7 @@ namespace GreenDelivery.Test
         public void NotExternalProduct_CanDeliverExternalProduct_ShouldBeTrue()
         {
             var product = new Product();
-            var delivery = new Delivery(0, DateTime.Now, TODO);
+            var delivery = new Delivery(0, DateTime.Now, DateTime.Now);
             Assert.True(_service.CanDeliverExternalProduct(product, delivery, DateTime.Now));
         }
 
@@ -72,7 +72,7 @@ namespace GreenDelivery.Test
         public void TemporaryProduct_DeliveryIsInEightDays_CanDeliverTemporaryProduct_ShouldBeFalse()
         {
             var product = new Product { ProductType = Product.ProductTypes.Temporary };
-            var delivery = new Delivery(0, DateTime.Now.AddDays(8), TODO);
+            var delivery = new Delivery(0, DateTime.Now.AddDays(8), DateTime.Now);
             Assert.False(_service.CanDeliverTemporaryProduct(product, delivery, DateTime.Now));
         }
 
@@ -80,7 +80,7 @@ namespace GreenDelivery.Test
         public void TemporaryProduct_DeliveryIsInFiveDays_CanDeliverTemporaryProduct_ShouldBeTrue()
         {
             var product = new Product { ProductType = Product.ProductTypes.Temporary };
-            var delivery = new Delivery(0, DateTime.Now.AddDays(5), TODO);
+            var delivery = new Delivery(0, DateTime.Now.AddDays(5), DateTime.Now);
             Assert.True(_service.CanDeliverTemporaryProduct(product, delivery, DateTime.Now));
         }
 
@@ -88,21 +88,21 @@ namespace GreenDelivery.Test
         public void NotTemporaryProduct_CanDeliverTemporaryProduct_ShouldBeTrue()
         {
             var product = new Product();
-            var delivery = new Delivery(0, DateTime.Now, TODO);
+            var delivery = new Delivery(0, DateTime.Now, DateTime.Now);
             Assert.True(_service.CanDeliverTemporaryProduct(product, delivery, DateTime.Now));
         }
 
         [Fact]
-        public void DeliveryOnTheNinth_IsGreenDelivery_ShouldBeTrue()
+        public void DeliveryOnTheEight_IsGreenDelivery_ShouldBeTrue()
         {
-            var delivery = new Delivery(0, new DateTime(2022,12,9), TODO);
+            var delivery = new Delivery(0, new DateTime(2022,12,8), DateTime.Now);
             Assert.True(_service.IsGreenDelivery(delivery));
         }
 
         [Fact]
         public void DeliveryOnTheThirteenth_IsGreenDelivery_ShouldBeFalse()
         {
-            var delivery = new Delivery(0, new DateTime(2022, 12, 13), TODO);
+            var delivery = new Delivery(0, new DateTime(2022, 12, 13), DateTime.Now);
             Assert.False(_service.IsGreenDelivery(delivery));
         }
     }
